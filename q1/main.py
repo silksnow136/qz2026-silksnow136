@@ -21,6 +21,9 @@ def analyze_log(filepath: str) -> dict:
             except json.JSONDecodeError:
                 continue
 
+            if not isinstance(obj, dict):
+                continue
+
             if not all(key in obj for key in ['timestamp', 'level', 'message', 'user']):
                 continue
 
