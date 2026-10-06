@@ -4,15 +4,8 @@ import json
 def analyze_log(filepath: str) -> dict:
     result = {
         "total": 0,
-        "by_level": {
-            "INFO": 0,
-            "ERROR": 0,
-        },
-        "by_user": {
-            "张三": 0,
-            "李四": 0,
-            "王五": 0,
-        },
+        "by_level": {},
+        "by_user": {},
         "last_error": None,
     }
 
@@ -32,12 +25,10 @@ def analyze_log(filepath: str) -> dict:
                 continue
 
             result["total"] += 1
-            result["by_level"][obj["level"]] += 1
-            result["by_user"][obj["user"]] += 1
+            result["by_level"][obj["level"]] = result["by_level"].get(obj["level"], 0) + 1
+            result["by_user"][obj["user"]] = result["by_user"].get(obj["user"], 0) + 1
 
             if obj["level"] == "ERROR":
                 result["last_error"] = obj["message"]
 
     return result
-
-    return results
