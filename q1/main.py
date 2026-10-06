@@ -2,10 +2,7 @@ import os
 import json
 
 def analyze_log(filepath: str) -> dict:
-    if not os.path.exists(filepath):
-        return {}
-    
-    results = {
+    result = {
         "total": 0,
         "by_level": {
             "INFO": 0,
@@ -18,7 +15,10 @@ def analyze_log(filepath: str) -> dict:
         },
         "last_error": None,
     }
-    
+
+    if not os.path.exists(filepath):
+            return result
+
     with open(filepath, 'r', encoding='utf-8') as f:
         for line in f:
             line = line.strip()
@@ -31,11 +31,13 @@ def analyze_log(filepath: str) -> dict:
             if not all(key in obj for key in ['timestamp', 'level', 'message', 'user']):
                 continue
 
-            results["total"] += 1
-            results["by_level"][obj["level"]] += 1
-            results["by_user"][obj["user"]] += 1
+            result["total"] += 1
+            result["by_level"][obj["level"]] += 1
+            result["by_user"][obj["user"]] += 1
 
             if obj["level"] == "ERROR":
-                results["last_error"] = obj["message"]
+                result["last_error"] = obj["message"]
+
+    return result
 
     return results
