@@ -206,7 +206,13 @@ logs = [
 3. 解释为什么第 2 问不能直接用 `len(logs)` 得到结果，需要什么遍历结构？
 
 （在此作答）
-
+1. ```python
+   [log for log in logs if log["level"] == "ERROR"]
+   ```
+2. ```python
+   {user: sum(log["user"] == user for log in logs) for user in {log["user"] for log in logs}}
+   ```
+3. `len(logs)`得到的是列表含有的对象数量，即 5，怎么想都不应该用。遍历需要 for-in 可迭代对象。 
 ### 第 3 题：异常处理设计
 
 Day_10 中你写过 `safe_int(s)` 函数：能转就返回整数，不能转就返回 `None`。
