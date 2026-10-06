@@ -11,21 +11,21 @@ class UserManager:
         user = {"id": self.userCount, "username": username, "age": age}
         self.users.append(user)
 
-    def get_users(self, id):
+    def get_user(self, id):
         for user in self.users:
             if user["id"] == id:
                 return user
         return None
 
     def update_age(self, id, new_age):
-        user = self.get_users(id)
+        user = self.get_user(id)
         if user:
             user["age"] = new_age
             return True
         return False
 
     def remove_user(self, id):
-        user = self.get_users(id)
+        user = self.get_user(id)
         if user:
             self.users.remove(user)
             self.userCount -= 1
