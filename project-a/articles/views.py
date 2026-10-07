@@ -2,6 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import F
 from .models import Article, Attachment
 
+def home(request):
+    articles = Article.objects.all()
+    return render(request, 'articles/home.html', {'articles': articles})
+
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
     article.views = F('views') + 1
