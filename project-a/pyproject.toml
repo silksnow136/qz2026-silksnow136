@@ -8,12 +8,12 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
-    "django>=6.1.2",
+    "django>=6.0",
+    "pillow>=10.0",
 ]
 
 [project.scripts]
 project-a = "project_a:main"
 
-[build-system]
-requires = ["uv_build>=0.12.13,<0.13.0"]
-build-backend = "uv_build"
+[tool.uv]
+package = false
